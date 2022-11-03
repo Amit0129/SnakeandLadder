@@ -9,7 +9,7 @@ namespace SnakeandLadder
             Console.WriteLine("Welcome Snake and Ladder Game");
 
             int plearPosition = 0;
-            const int WIN_POSI = 30;
+            const int WIN_POSI = 100;
             int playerRollCount = 0;
             Console.WriteLine("The starting position of the player is {0}", plearPosition);
 
@@ -25,41 +25,43 @@ namespace SnakeandLadder
                 int checkOp = randon.Next(0, 3);
                 Console.WriteLine(checkOp);
 
-                if (plearPosition > 30)
+
+                //plearPosition += diceVal;
+                //Console.WriteLine("The Player PositionNow is {0} ", plearPosition);
+
+                switch (checkOp)
                 {
-                    plearPosition -= diceVal;
-                }
-                else
-                {
-                    //plearPosition += diceVal;
-                    //Console.WriteLine("The Player PositionNow is {0} ", plearPosition);
+                    case 0:
+                        Console.WriteLine("There are No Play");
+                        Console.WriteLine("Player Position is {0}", plearPosition);
+                        Console.WriteLine("The Dice Roll {0} times", playerRollCount);
+                        break;
+                    case 1:
 
-                    switch (checkOp)
-                    {
-                        case 0:
-                            Console.WriteLine("There are No Play");
-                            Console.WriteLine("Player Position is {0}", plearPosition);
-                            break;
-                        case 1:
-
-                            Console.WriteLine("Ladder");
-                            plearPosition += diceVal;
-                            Console.WriteLine("Player Position is {0}", plearPosition);
-
-                            break;
-                        case 2:
-                            Console.WriteLine("Snake");
+                        Console.WriteLine("Ladder");
+                        plearPosition += diceVal;
+                        if(plearPosition > 100)
+                        {
                             plearPosition -= diceVal;
-                            if (plearPosition < 0)
-                            {
-                                plearPosition = 0;
-                            }
-                            Console.WriteLine("Player Position is {0}", plearPosition);
-                            break;
-                    }
-
+                        }
+                        Console.WriteLine("Player Position is {0}", plearPosition);
+                        Console.WriteLine("The Dice Roll {0} times", playerRollCount);
+                        break;
+                    case 2:
+                        Console.WriteLine("Snake");
+                        plearPosition -= diceVal;
+                        if (plearPosition < 0)
+                        {
+                            plearPosition = 0;
+                        }
+                        Console.WriteLine("Player Position is {0}", plearPosition);
+                        Console.WriteLine("The Dice Roll {0} times", playerRollCount);
+                        break;
                 }
+
             }
+
+            Console.WriteLine("The total Of {0} Dice Roll player win ", playerRollCount);
 
 
         }
