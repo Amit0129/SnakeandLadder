@@ -9,10 +9,9 @@ namespace SnakeandLadder
             Console.WriteLine("Welcome Snake and Ladder Game");
 
             int plearPosition = 0;
-            const int WIN_POSI = 100;
+            const int WIN_POSI = 30;
             int playerRollCount = 0;
             Console.WriteLine("The starting position of the player is {0}", plearPosition);
-
 
             while (plearPosition < WIN_POSI)
             {
@@ -26,7 +25,12 @@ namespace SnakeandLadder
                 int checkOp = randon.Next(0, 3);
                 Console.WriteLine(checkOp);
 
-               
+                if (plearPosition > 30)
+                {
+                    plearPosition -= diceVal;
+                }
+                else
+                {
                     //plearPosition += diceVal;
                     //Console.WriteLine("The Player PositionNow is {0} ", plearPosition);
 
@@ -55,12 +59,7 @@ namespace SnakeandLadder
                     }
 
                 }
-            
-            
-        
-
-
-
+            }
 
 
         }
