@@ -4,66 +4,106 @@ namespace SnakeandLadder
 {
     internal class Program
     {
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome Snake and Ladder Game");
 
-            int plearPosition = 0;
+            int playerOnePosition = 0;
+            int playerTwoPosition = 0;
+            int player1Count = 0;
+            int player2Count = 0;
+            bool player1 = true;
+            bool player2 = false;
+
+
             const int WIN_POSI = 100;
-            int playerRollCount = 0;
-            Console.WriteLine("The starting position of the player is {0}", plearPosition);
 
-            while (plearPosition < WIN_POSI)
+
+            GameControler gameControler = new GameControler();
+            Random random = new Random();
+            
+
+
+            Console.WriteLine("The starting position of the player One is {0}", playerOnePosition);
+            Console.WriteLine("The starting position of the player Two is {0}", playerTwoPosition);
+
+
+           
+
+
+
+            while (playerOnePosition < WIN_POSI && playerTwoPosition < WIN_POSI)
             {
-                playerRollCount++;
-
-
-                Random randon = new Random();
-                int diceVal = randon.Next(1, 7);
-                Console.WriteLine("The value u ger from rolling the dice is {0} ", diceVal);
-
-                int checkOp = randon.Next(0, 3);
-                Console.WriteLine(checkOp);
-
-
-                //plearPosition += diceVal;
-                //Console.WriteLine("The Player PositionNow is {0} ", plearPosition);
-
-                switch (checkOp)
+                if (playerOnePosition == 100)
                 {
-                    case 0:
-                        Console.WriteLine("There are No Play");
-                        Console.WriteLine("Player Position is {0}", plearPosition);
-                        Console.WriteLine("The Dice Roll {0} times", playerRollCount);
-                        break;
-                    case 1:
+                    Console.WriteLine("One win");
+                }
+                if (playerTwoPosition == 100)
+                {
+                    Console.WriteLine("Two Win");
+                }
+                if (player1)
+                {
+                    int diceVal = random.Next(1, 7);
+                    Console.WriteLine("The value u ger from rolling the dice is {0} ", diceVal);
 
-                        Console.WriteLine("Ladder");
-                        plearPosition += diceVal;
-                        if(plearPosition > 100)
-                        {
-                            plearPosition -= diceVal;
-                        }
-                        Console.WriteLine("Player Position is {0}", plearPosition);
-                        Console.WriteLine("The Dice Roll {0} times", playerRollCount);
-                        break;
-                    case 2:
-                        Console.WriteLine("Snake");
-                        plearPosition -= diceVal;
-                        if (plearPosition < 0)
-                        {
-                            plearPosition = 0;
-                        }
-                        Console.WriteLine("Player Position is {0}", plearPosition);
-                        Console.WriteLine("The Dice Roll {0} times", playerRollCount);
-                        break;
+                    int checkOp = random.Next(0, 3);
+                    Console.WriteLine(checkOp);
+                    player1Count++;
+                    if (checkOp == 0)
+                    {
+                        gameControler.noPlay(playerOnePosition, player1Count);
+                        
+                    }
+                    else if (checkOp == 1)
+                    {
+                        playerOnePosition =gameControler.ladder(playerOnePosition, diceVal, player1Count);
+
+
+                    }
+                    else
+                    {
+                        playerOnePosition = gameControler.snake(playerOnePosition, diceVal, player1Count);
+                        player1 = false;
+                        player2 = true;
+                        
+                    }
+                }
+                else
+                {
+                    int diceVal = random.Next(1, 7);
+                    Console.WriteLine("The value u ger from rolling the dice is {0} ", diceVal);
+
+                    int checkOp = random.Next(0, 3);
+                    Console.WriteLine(checkOp);
+                    player2Count++;
+                    if (checkOp == 0)
+                    {
+                        gameControler.noPlay(playerTwoPosition,player2Count);
+                    }
+                    else if (checkOp == 1)
+                    {
+                        playerTwoPosition = gameControler.ladder(playerTwoPosition,diceVal, player2Count);
+                    }
+                    else
+                    {
+                        playerTwoPosition = gameControler.snake(playerTwoPosition, diceVal, player2Count);
+                        player1 = true;
+                        player2 = false;
+                        
+                    }
                 }
 
             }
-
-            Console.WriteLine("The total Of {0} Dice Roll player win ", playerRollCount);
-
-
+            if (playerOnePosition == 100)
+            {
+                Console.WriteLine("---==========Player One Win==========---");
+            }
+            if (playerTwoPosition == 100)
+            {
+                Console.WriteLine("---==========Player Two win====---");
+            }
         }
     }
 }
